@@ -1,9 +1,12 @@
 <html>
 <link rel="stylesheet" href="index.css">
-<div class="image-wrapper">
-  <img class="image-1" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Akashs_Srivastava.jpg style="width:500px;height:600px;" />
-  <img class="image-2" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Akashs_Srivastava.jpg" />
-  <img class="image-3" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Akashs_Srivastava.jpg" />
-  <img class="image-4" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Akashs_Srivastava.jpg" />
-</div>
+- var cats = ['cheetah', 'cougar', 'leopard', 'lion', 'tiger'];
+- var n = cats.length;
+
+style :root { --n: #{n} }
+while n--
+	article
+		h3 #{cats[n]}
+		figure
+			img(src=`https://s3-us-west-2.amazonaws.com/s.cdpn.io/2017/17_07_art_${cats[n]}.jpg`)
 </html>
