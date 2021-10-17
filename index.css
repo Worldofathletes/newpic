@@ -1,51 +1,70 @@
-.image-wrapper {
-  width: 600px;
-  height: 400px;
-  position: relative;
-  margin: 30vh auto;
+@import 'compass/css3';
+
+$gl: linear-gradient(currentColor, currentColor);
+
+@mixin poly($n: 5, $roff: 0) {
+	$p: ();
+	$ba: 360deg/$n;
+	
+	@for $i from 0 to $n {
+		$ca: ($roff + $i)*$ba;
+		$x: 50%*(1 + cos($ca));
+		$y: 50%*(1 + sin($ca));
+		$p: $p, $x $y
+	}
+	--cpval: polygon($p);
+	-webkit-clip-path: var(--cpval);
+					clip-path: var(--cpval)
+
 }
 
-.image-wrapper img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: left;
+* { margin: 0; padding: 0 }
+
+html { background: #000 }
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: #222 $gl 50%/ 2px repeat-y;
+	color: #ddd;
 }
 
-.image-1 {
-  clip-path: polygon(0 0, 0 32%, 28% 0);
-  transform: translate(-10px, -10px);
-  transition: transform 300ms ease;
-  transform-origin: top;
-  .image-wrapper:hover & {
-    transform: translate(0,0);
-  }
+article {
+	--s: -1;
+	display: flex;
+	align-items: center;
+	height: calc(100vh/var(--n));
+	transform: translate(calc(var(--s)*50%));
+      &:nth-child(2n) {
+		--s: 1;
+		
+		img {
+			@include poly($roff: .5);
+			
+			&:hover { @include poly($roff: -.5) }
+		}
+	}
 }
 
-.image-2 {
-  clip-path: polygon(28% 0, 0 32%, 0 100%, 17% 100%, 90% 0);
-transform: translate(-30px, 5px);
-  transition: transform 300ms ease;
-  .image-wrapper:hover & {
-    transform: translate(0,0);
-  }
+h3 {
+	order: var(--s);
+	font: 700 2em segoe script, cursive;
+	text-transform: capitalize
 }
 
-.image-3 {
-  clip-path: polygon(100% 0, 100% 65%, 74% 100%, 17% 100%, 90% 0);
-  transform: translate(-15px, -10px);
-  transition: transform 300ms ease;
-  .image-wrapper:hover & {
-    transform: translate(0,0);
-  }
+figure, img { height: 100% }
+
+figure {
+	background: $gl calc((1 - var(--s))*50%) 50%/ 50% 2px no-repeat;
+	filter: drop-shadow(2px 2px 3px currentcolor)
 }
 
-.image-4 {
-  clip-path: polygon(100% 65%, 74% 100%, 100% 100%);
-  transform: translate(-32px, 5px);
-  transition: transform 300ms ease;
-  transform-origin: top;
- .image-wrapper:hover & {
-    transform: translate(0,0);
-  }
+img {
+	display: block;
+	margin: 0 1em;
+	@include poly();
+transition: .7s;
+	
+	&:hover { @include poly($roff: 1) }
 }
